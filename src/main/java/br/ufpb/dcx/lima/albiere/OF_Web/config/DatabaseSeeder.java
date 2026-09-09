@@ -19,7 +19,8 @@ public class DatabaseSeeder {
                 User admin = new User();
                 admin.setName("Administrador UFPB");
                 admin.setEmail(adminEmail);
-                admin.setPassword(passwordEncoder.encode("admin123")); // Criptografa com BCrypt
+                admin.setRole("ROLE_ADMIN");
+                admin.setPassword(passwordEncoder.encode("admin123"));
 
                 userRepository.save(admin);
                 System.out.println("Usuário admin criado com sucesso!");
