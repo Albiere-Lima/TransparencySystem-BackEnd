@@ -1,31 +1,40 @@
 package br.ufpb.dcx.lima.albiere.OF_Web.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
 @Entity
-@Table(name = "tb_users")
+@Table(name = "users")
+@Data
+@Getter
+@Setter
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "google_id", unique = true)
+    private String googleId;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
+    private String name;
+
+    private String initials;
+
+    private String avatarColor;
 
     @Column(nullable = false)
-    private String role;
+    private String role; // Standard: "ROLE_STUDENT", "ROLE_ADMIN", etc.
+
+    private String department;
+
+    @Column(length = 500)
+    private String bio;
 
     public User() {}
-
 }
