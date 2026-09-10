@@ -1,15 +1,13 @@
 package br.ufpb.dcx.lima.albiere.OF_Web.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "users")
-@Data
-@Getter
 @Setter
+@Getter
+@Entity
+@Table(name = "tb_users")
 public class User {
 
     @Id
@@ -19,17 +17,22 @@ public class User {
     @Column(name = "google_id", unique = true)
     private String googleId;
 
+    @Column(nullable = false)
+    private String name;
+
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String name;
+    // Alterado para nullable = true para permitir cadastro via Google (sem senha)
+    @Column(nullable = true)
+    private String password;
+
+    @Column(nullable = false)
+    private String role; // Padrão: "ROLE_STUDENT"
 
     private String initials;
 
     private String avatarColor;
-
-    @Column(nullable = false)
-    private String role; // Standard: "ROLE_STUDENT", "ROLE_ADMIN", etc.
 
     private String department;
 
