@@ -33,8 +33,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/login", "/api/users/register", "/api/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/expenses", "/api/expenses/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/expenses").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/expenses/*", "/api/expenses/clear").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/expenses").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/expenses/*", "/api/expenses/clear").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
