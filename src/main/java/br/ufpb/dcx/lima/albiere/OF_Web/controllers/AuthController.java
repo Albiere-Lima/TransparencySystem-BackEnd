@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.0.4:5173"}, allowCredentials = "true")
+@CrossOrigin(originPatterns = "*", allowCredentials = "true")
 public class AuthController {
 
     private final AuthService authService;
@@ -25,6 +25,7 @@ public class AuthController {
             User user = authService.processGoogleLogin(request.getGoogleToken());
             return ResponseEntity.ok(user);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
