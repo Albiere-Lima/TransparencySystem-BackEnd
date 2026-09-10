@@ -60,7 +60,7 @@ public class UserController {
                     .body(Map.of("message", "E-mail ou senha incorretos."));
         }
 
-        String token = jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
 
         UserResponseDTO userDTO = new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getRole());
         return ResponseEntity.ok(new LoginResponse(token, userDTO));
