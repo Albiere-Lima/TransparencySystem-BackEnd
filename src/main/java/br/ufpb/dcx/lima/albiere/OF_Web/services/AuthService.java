@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -30,42 +31,29 @@ public class AuthService {
                 .build();
     }
 
-    public User processGoogleLogin(String idTokenString) throws Exception {
-        GoogleIdToken idToken = verifier.verify(idTokenString);
+    public User processGoogleLogin(String googleToken) throws Exception {
+        GoogleIdToken idToken = verifier.verify(googleToken);
         if (idToken == null) {
-            throw new IllegalArgumentException("Invalid or expired Google Token");
+            throw new IllegalArgumentException("Token do Google inválido");
         }
 
         GoogleIdToken.Payload payload = idToken.getPayload();
-
-        String googleId = payload.getSubject(); // Unique Google ID ('sub')
         String email = payload.getEmail();
         String name = (String) payload.get("name");
+        String pictureUrl = (String) payload.get("picture");
 
-        return userRepository.findByEmail(email)
-                .map(existingUser -> {
-                    if (existingUser.getGoogleId() == null) {
-                        existingUser.setGoogleId(googleId);
-                        return userRepository.save(existingUser);
-                    }
-                    return existingUser;
-                })
-                .orElseGet(() -> {
-                    User newUser = new User();
-                    newUser.setGoogleId(googleId);
-                    newUser.setEmail(email);
-                    newUser.setName(name);
-                    newUser.setRole("ROLE_STUDENT");
-                    newUser.setDepartment("Undergraduate / Student");
-                    newUser.setAvatarColor("#1E3A8A");
+        return userRepository.findByEmail(email).orElseGet(() -> {
+            User newUser = new User();
+            newUser.setEmail(email);
+            newUser.setName(name);
+            newUser.setGoogleId(payload.getSubject());
 
-                    String[] nameParts = name.split(" ");
-                    String initials = nameParts.length > 1
-                            ? (nameParts[0].substring(0, 1) + nameParts[nameParts.length - 1].substring(0, 1)).toUpperCase()
-                            : name.substring(0, Math.min(2, name.length())).toUpperCase();
-                    newUser.setInitials(initials);
+            newUser.setPassword(UUID.randomUUID().toString());
+            newUser.setRole("ROLE_STUDENT");
 
-                    return userRepository.save(newUser);
-                });
+            newUser.setPicture(pictureUrl);
+
+            return userRepository.save(newUser);
+        });
     }
 }

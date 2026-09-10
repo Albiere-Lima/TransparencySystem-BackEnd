@@ -19,16 +19,17 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/google")
-    public ResponseEntity<?> googleAuth(@RequestBody GoogleAuthRequest request) {
-        try {
-            User user = authService.processGoogleLogin(request.getGoogleToken());
-            return ResponseEntity.ok(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        @PostMapping("/google")
+        public ResponseEntity<?> googleAuth(@RequestBody GoogleAuthRequest request) {
+            try {
+                User user = authService.processGoogleLogin(request.getGoogleToken());
+                return ResponseEntity.ok(user);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+            }
         }
-    }
+
 }
 
 @Data

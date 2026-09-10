@@ -23,12 +23,11 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    // Alterado para nullable = true para permitir cadastro via Google (sem senha)
     @Column(nullable = true)
     private String password;
 
     @Column(nullable = false)
-    private String role; // Padrão: "ROLE_STUDENT"
+    private String role;
 
     private String initials;
 
@@ -38,6 +37,8 @@ public class User {
 
     @Column(length = 500)
     private String bio;
+
+    private String picture;
 
     public User() {}
 }
