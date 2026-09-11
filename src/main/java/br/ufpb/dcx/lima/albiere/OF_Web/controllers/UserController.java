@@ -73,7 +73,6 @@ public class UserController {
         return ResponseEntity.ok(new LoginResponse(token, userDTO));
     }
 
-    // Endpoint completo de atualização de perfil
     @PutMapping("/{id}/profile")
     public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
         return userRepository.findById(id).map(user -> {
