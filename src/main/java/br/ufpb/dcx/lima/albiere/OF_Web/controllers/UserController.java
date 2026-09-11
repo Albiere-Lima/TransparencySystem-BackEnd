@@ -65,4 +65,13 @@ public class UserController {
         UserResponseDTO userDTO = new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getRole());
         return ResponseEntity.ok(new LoginResponse(token, userDTO));
     }
+
+    @PutMapping("/{id}/avatar")
+    public ResponseEntity<?> updateAvatar(@PathVariable Long id, @RequestBody Map<String, String> payload) {
+        return userRepository.findById(id).map(user -> {
+            user.setPicture(payload.get("picture"));
+            User updatedUser = userRepository.save(user);
+            return ResponseEntity.ok(updatedUser);
+        }).orElse(ResponseEntity.notFound().build());
+    }
 }

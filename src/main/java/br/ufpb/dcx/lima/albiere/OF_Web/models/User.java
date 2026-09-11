@@ -38,6 +38,7 @@ public class User {
     @Column(length = 500)
     private String bio;
 
+    @Column(columnDefinition = "TEXT")
     private String picture;
 
     public User() {}
