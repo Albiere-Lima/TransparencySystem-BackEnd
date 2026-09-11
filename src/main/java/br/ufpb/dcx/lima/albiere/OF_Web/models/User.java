@@ -38,10 +38,10 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String department;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", length = 500)
     private String bio;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", length = 1000000000)
     private String picture;
 
     public User() {}
