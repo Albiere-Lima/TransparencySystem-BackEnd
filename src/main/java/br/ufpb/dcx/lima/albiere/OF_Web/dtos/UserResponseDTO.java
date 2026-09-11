@@ -15,6 +15,47 @@ public class UserResponseDTO {
     private String avatarColor;
     private String picture;
     private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getNotifyDailySummary() {
+        return notifyDailySummary;
+    }
+
+    public void setNotifyDailySummary(Boolean notifyDailySummary) {
+        this.notifyDailySummary = notifyDailySummary;
+    }
+
+    public Boolean getNotifyMonthlyReports() {
+        return notifyMonthlyReports;
+    }
+
+    public void setNotifyMonthlyReports(Boolean notifyMonthlyReports) {
+        this.notifyMonthlyReports = notifyMonthlyReports;
+    }
+
+    public Boolean getNotifyNewExpenses() {
+        return notifyNewExpenses;
+    }
+
+    public void setNotifyNewExpenses(Boolean notifyNewExpenses) {
+        this.notifyNewExpenses = notifyNewExpenses;
+    }
+
+    public Boolean getNotifySystemAlerts() {
+        return notifySystemAlerts;
+    }
+
+    public void setNotifySystemAlerts(Boolean notifySystemAlerts) {
+        this.notifySystemAlerts = notifySystemAlerts;
+    }
+
     private Boolean notifyDailySummary;
     private Boolean notifyMonthlyReports;
     private Boolean notifyNewExpenses;
