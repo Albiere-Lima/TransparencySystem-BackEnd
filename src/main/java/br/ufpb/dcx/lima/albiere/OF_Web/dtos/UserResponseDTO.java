@@ -14,12 +14,23 @@ public class UserResponseDTO {
     private String initials;
     private String avatarColor;
     private String picture;
+    private String password;
+    private Boolean notifyDailySummary;
+    private Boolean notifyMonthlyReports;
+    private Boolean notifyNewExpenses;
+    private Boolean notifySystemAlerts;
 
-    public UserResponseDTO() {}
+    public UserResponseDTO(String password, Boolean notifyDailySummary, Boolean notifyMonthlyReports, Boolean notifyNewExpenses, Boolean notifySystemAlerts) {
+        this.password = password;
+        this.notifyDailySummary = notifyDailySummary;
+        this.notifyMonthlyReports = notifyMonthlyReports;
+        this.notifyNewExpenses = notifyNewExpenses;
+        this.notifySystemAlerts = notifySystemAlerts;
+    }
 
     public UserResponseDTO(Long id, String name, String surname, String email, String phone,
                            String registrationNumber, String campus, String department,
-                           String bio, String role, String initials, String avatarColor, String picture) {
+                           String bio, String role, String initials, String avatarColor, String picture, String password, Boolean notifyDailySummary, Boolean notifyMonthlyReports, Boolean notifyNewExpenses, Boolean notifySystemAlerts) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -33,9 +44,13 @@ public class UserResponseDTO {
         this.initials = initials;
         this.avatarColor = avatarColor;
         this.picture = picture;
+        this.password = password;
+        this.notifyDailySummary = notifyDailySummary;
+        this.notifyMonthlyReports = notifyMonthlyReports;
+        this.notifyNewExpenses = notifyNewExpenses;
+        this.notifySystemAlerts = notifySystemAlerts;
     }
 
-    // Getters
     public Long getId() { return id; }
     public String getName() { return name; }
     public String getSurname() { return surname; }

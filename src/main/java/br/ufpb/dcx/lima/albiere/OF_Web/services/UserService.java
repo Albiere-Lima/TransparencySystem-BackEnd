@@ -51,7 +51,12 @@ public class UserService {
                 user.getRole(),
                 user.getInitials(),
                 user.getAvatarColor(),
-                user.getPicture()
+                user.getPicture(),
+                user.getPassword(),
+                user.getNotifyDailySummary(),
+                user.getNotifyMonthlyReports(),
+                user.getNotifyNewExpenses(),
+                user.getNotifySystemAlerts()
         );
     }
 

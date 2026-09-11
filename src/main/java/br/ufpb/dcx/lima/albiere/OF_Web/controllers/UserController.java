@@ -70,7 +70,12 @@ public class UserController {
                 user.getRole(),
                 user.getInitials(),
                 user.getAvatarColor(),
-                user.getPicture()
+                user.getPicture(),
+                user.getPassword(),
+                user.getNotifyDailySummary(),
+                user.getNotifyMonthlyReports(),
+                user.getNotifyNewExpenses(),
+                user.getNotifySystemAlerts()
         );
 
         return ResponseEntity.ok(new LoginResponse(token, userDTO));
@@ -109,7 +114,12 @@ public class UserController {
                     updatedUser.getRole(),
                     updatedUser.getInitials(),
                     updatedUser.getAvatarColor(),
-                    updatedUser.getPicture()
+                    updatedUser.getPicture(),
+                    updatedUser.getPassword(),
+                    updatedUser.getNotifyDailySummary(),
+                    updatedUser.getNotifyMonthlyReports(),
+                    updatedUser.getNotifyNewExpenses(),
+                    updatedUser.getNotifySystemAlerts()
             );
 
             return ResponseEntity.ok(responseDTO);
