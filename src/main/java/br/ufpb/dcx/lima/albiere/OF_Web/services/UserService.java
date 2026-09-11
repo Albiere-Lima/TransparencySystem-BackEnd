@@ -34,7 +34,12 @@ public class UserService {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                user.getRole()
+                user.getRole(),
+                user.getDepartment(),
+                user.getInitials(),
+                user.getBio(),
+                user.getAvatarColor(),
+                user.getPicture()
         );
     }
 }

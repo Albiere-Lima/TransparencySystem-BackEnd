@@ -21,6 +21,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -47,31 +48,63 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-
         User user = userRepository.findByEmail(request.getEmail()).orElse(null);
 
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("message", "E-mail ou senha incorretos."));
-        }
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("message", "E-mail ou senha incorretos."));
         }
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
 
-        UserResponseDTO userDTO = new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getRole());
+        // Retorna DTO com os dados do avatar/foto inclusos
+        UserResponseDTO userDTO = new UserResponseDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getDepartment(),
+                user.getInitials(),
+                user.getBio(),
+                user.getAvatarColor(),
+                user.getPicture()
+        );
+
         return ResponseEntity.ok(new LoginResponse(token, userDTO));
     }
 
-    @PutMapping("/{id}/avatar")
-    public ResponseEntity<?> updateAvatar(@PathVariable Long id, @RequestBody Map<String, String> payload) {
+    // Endpoint completo de atualização de perfil
+    @PutMapping("/{id}/profile")
+    public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
         return userRepository.findById(id).map(user -> {
-            user.setPicture(payload.get("picture"));
+            if (payload.containsKey("name")) user.setName((String) payload.get("name"));
+            if (payload.containsKey("department")) user.setDepartment((String) payload.get("department"));
+            if (payload.containsKey("initials")) user.setInitials((String) payload.get("initials"));
+            if (payload.containsKey("bio")) user.setBio((String) payload.get("bio"));
+            if (payload.containsKey("avatarColor")) user.setAvatarColor((String) payload.get("avatarColor"));
+
+            // Aceita tanto 'pictureUrl' quanto 'picture' vindo do JSON do React
+            if (payload.containsKey("pictureUrl")) {
+                user.setPicture((String) payload.get("pictureUrl"));
+            } else if (payload.containsKey("picture")) {
+                user.setPicture((String) payload.get("picture"));
+            }
+
             User updatedUser = userRepository.save(user);
-            return ResponseEntity.ok(updatedUser);
+
+            UserResponseDTO responseDTO = new UserResponseDTO(
+                    updatedUser.getId(),
+                    updatedUser.getName(),
+                    updatedUser.getEmail(),
+                    updatedUser.getRole(),
+                    updatedUser.getDepartment(),
+                    updatedUser.getInitials(),
+                    updatedUser.getBio(),
+                    updatedUser.getAvatarColor(),
+                    updatedUser.getPicture()
+            );
+
+            return ResponseEntity.ok(responseDTO);
         }).orElse(ResponseEntity.notFound().build());
     }
 }
