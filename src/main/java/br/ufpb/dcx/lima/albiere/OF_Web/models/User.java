@@ -38,11 +38,28 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String department;
 
-    @Column(columnDefinition = "TEXT", length = 500)
+    @Column(columnDefinition = "TEXT")
     private String bio;
 
-    @Column(columnDefinition = "TEXT", length = 1000000000)
+    @Column(columnDefinition = "TEXT")
     private String picture;
+
+    @Column(columnDefinition = "TEXT")
+    private String surname;
+
+    @Column(columnDefinition = "TEXT")
+    private String phone;
+
+    @Column(columnDefinition = "TEXT")
+    private String registrationNumber;
+
+    @Column(columnDefinition = "TEXT")
+    private String campus;
+
+    private Boolean notifyDailySummary = true;
+    private Boolean notifyNewExpenses = true;
+    private Boolean notifyMonthlyReports = false;
+    private Boolean notifySystemAlerts = true;
 
     public User() {}
 }
