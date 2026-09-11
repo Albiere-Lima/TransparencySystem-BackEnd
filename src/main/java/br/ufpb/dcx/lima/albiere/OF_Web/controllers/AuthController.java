@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -27,7 +28,11 @@ public class AuthController {
             try {
                 User user = authService.processGoogleLogin(request.getGoogleToken());
                 String appToken = jwtUtil.generateToken(user.getEmail(), user.getRole());
-                return ResponseEntity.ok(user);
+                Map<String, Object> response = new HashMap<>();
+                response.put("token", appToken);
+                response.put("user", user);
+
+                return ResponseEntity.ok(response);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
