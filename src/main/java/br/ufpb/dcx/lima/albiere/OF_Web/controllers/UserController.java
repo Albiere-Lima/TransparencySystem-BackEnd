@@ -1,8 +1,6 @@
 package br.ufpb.dcx.lima.albiere.OF_Web.controllers;
 
-import br.ufpb.dcx.lima.albiere.OF_Web.dtos.LoginRequest;
-import br.ufpb.dcx.lima.albiere.OF_Web.dtos.LoginResponse;
-import br.ufpb.dcx.lima.albiere.OF_Web.dtos.UserResponseDTO;
+import br.ufpb.dcx.lima.albiere.OF_Web.dtos.*;
 import br.ufpb.dcx.lima.albiere.OF_Web.models.User;
 import br.ufpb.dcx.lima.albiere.OF_Web.repositories.UserRepository;
 import br.ufpb.dcx.lima.albiere.OF_Web.services.UserService;
@@ -13,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -106,4 +105,18 @@ public class UserController {
             return ResponseEntity.ok(responseDTO);
         }).orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/{id}/notifications")
+    public ResponseEntity<UserResponseDTO> updateNotifications(@RequestBody UserNotificationsDTO dto, Principal principal) {
+        UserResponseDTO updatedUser = userService.updateNotifications(principal.getName(), dto);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @PutMapping("/{id}/change-password")
+    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordDTO dto, Principal principal) {
+        userService.changePassword(principal.getName(), dto.currentPassword(), dto.newPassword());
+        return ResponseEntity.ok().build();
+    }
+
+
 }
