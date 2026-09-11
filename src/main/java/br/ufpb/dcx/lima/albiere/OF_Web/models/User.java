@@ -14,25 +14,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "google_id", unique = true)
+    @Column(columnDefinition = "TEXT", name = "google_id", unique = true)
     private String googleId;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(columnDefinition = "TEXT", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = true)
+    @Column(columnDefinition = "TEXT", nullable = true)
     private String password;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String role;
 
+    @Column(columnDefinition = "TEXT")
     private String initials;
 
+    @Column(columnDefinition = "TEXT")
     private String avatarColor;
 
+    @Column(columnDefinition = "TEXT")
     private String department;
 
     @Column(columnDefinition = "TEXT")
