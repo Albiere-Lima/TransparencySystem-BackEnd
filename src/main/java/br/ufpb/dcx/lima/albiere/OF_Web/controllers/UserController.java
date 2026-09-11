@@ -84,8 +84,10 @@ public class UserController {
             if (payload.containsKey("initials")) user.setInitials((String) payload.get("initials"));
             if (payload.containsKey("bio")) user.setBio((String) payload.get("bio"));
             if (payload.containsKey("avatarColor")) user.setAvatarColor((String) payload.get("avatarColor"));
-
-            // Aceita tanto 'pictureUrl' quanto 'picture' vindo do JSON do React
+            if (payload.containsKey("surname")) user.setSurname((String) payload.get("surname"));
+            if (payload.containsKey("campus")) user.setCampus((String) payload.get("campus"));
+            if (payload.containsKey("phone")) user.setPhone((String) payload.get("phone"));
+            if (payload.containsKey("registrationNumber")) user.setRegistrationNumber((String) payload.get("registrationNumber"));
             if (payload.containsKey("pictureUrl")) {
                 user.setPicture((String) payload.get("pictureUrl"));
             } else if (payload.containsKey("picture")) {
