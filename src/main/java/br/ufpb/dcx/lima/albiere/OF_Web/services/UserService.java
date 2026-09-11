@@ -41,11 +41,15 @@ public class UserService {
         return new UserResponseDTO(
                 user.getId(),
                 user.getName(),
+                user.getSurname(),
                 user.getEmail(),
-                user.getRole(),
+                user.getPhone(),
+                user.getRegistrationNumber(),
+                user.getCampus(),
                 user.getDepartment(),
-                user.getInitials(),
                 user.getBio(),
+                user.getRole(),
+                user.getInitials(),
                 user.getAvatarColor(),
                 user.getPicture()
         );

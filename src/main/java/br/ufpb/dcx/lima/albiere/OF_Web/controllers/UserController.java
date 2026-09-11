@@ -60,11 +60,15 @@ public class UserController {
         UserResponseDTO userDTO = new UserResponseDTO(
                 user.getId(),
                 user.getName(),
+                user.getSurname(),
                 user.getEmail(),
-                user.getRole(),
+                user.getPhone(),
+                user.getRegistrationNumber(),
+                user.getCampus(),
                 user.getDepartment(),
-                user.getInitials(),
                 user.getBio(),
+                user.getRole(),
+                user.getInitials(),
                 user.getAvatarColor(),
                 user.getPicture()
         );
@@ -93,11 +97,15 @@ public class UserController {
             UserResponseDTO responseDTO = new UserResponseDTO(
                     updatedUser.getId(),
                     updatedUser.getName(),
+                    updatedUser.getSurname(),
                     updatedUser.getEmail(),
-                    updatedUser.getRole(),
+                    updatedUser.getPhone(),
+                    updatedUser.getRegistrationNumber(),
+                    updatedUser.getCampus(),
                     updatedUser.getDepartment(),
-                    updatedUser.getInitials(),
                     updatedUser.getBio(),
+                    updatedUser.getRole(),
+                    updatedUser.getInitials(),
                     updatedUser.getAvatarColor(),
                     updatedUser.getPicture()
             );
