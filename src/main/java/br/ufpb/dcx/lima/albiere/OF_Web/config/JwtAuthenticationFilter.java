@@ -36,15 +36,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = authHeader.substring(7);
         try {
             String email = jwtUtil.extractEmail(token);
-            String role = jwtUtil.extractRole(token); // 1. Extrai a permissão do token
+            String role = jwtUtil.extractRole(token);
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // 2. Converte a string (ex: "ROLE_ADMIN") em uma autoridade do Spring
                 List<SimpleGrantedAuthority> authorities = (role != null)
                         ? List.of(new SimpleGrantedAuthority(role))
                         : List.of();
 
-                // 3. Passa a lista de 'authorities' em vez de 'Collections.emptyList()'
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(email, null, authorities);
 

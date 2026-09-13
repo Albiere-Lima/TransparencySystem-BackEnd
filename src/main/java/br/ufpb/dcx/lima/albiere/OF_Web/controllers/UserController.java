@@ -56,7 +56,6 @@ public class UserController {
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
 
-        // Retorna DTO com os dados do avatar/foto inclusos
         UserResponseDTO userDTO = new UserResponseDTO(
                 user.getId(),
                 user.getName(),
@@ -128,6 +127,9 @@ public class UserController {
 
     @PutMapping("/{id}/notifications")
     public ResponseEntity<UserResponseDTO> updateNotifications(@RequestBody UserNotificationsDTO dto, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         UserResponseDTO updatedUser = userService.updateNotifications(principal.getName(), dto);
         return ResponseEntity.ok(updatedUser);
     }

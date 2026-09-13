@@ -3,9 +3,9 @@ package br.ufpb.dcx.lima.albiere.OF_Web.dtos;
 import lombok.Getter;
 import lombok.Setter;
 
+@Setter
+@Getter
 public class LoginResponse {
-    @Setter
-    @Getter
     private String token;
     private UserResponseDTO user;
 
@@ -14,11 +14,4 @@ public class LoginResponse {
         this.user = user;
     }
 
-    public UserResponseDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserResponseDTO user) {
-        this.user = user;
-    }
 }
