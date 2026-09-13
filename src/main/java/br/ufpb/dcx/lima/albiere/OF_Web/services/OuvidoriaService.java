@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Year;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -105,5 +106,36 @@ public class OuvidoriaService {
                 ouvidoria.getCreatedAt(),
                 messagesDto
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<OuvidoriaResponseDTO> getAllManifestations() {
+        return ouvidoriaRepository.findAllByOrderByCreatedAtDesc()
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public OuvidoriaResponseDTO updateStatus(String protocol, String newStatus) {
+        Ouvidoria ouvidoria = ouvidoriaRepository.findByProtocol(protocol)
+                .orElseThrow(() -> new RuntimeException("Protocolo não encontrado: " + protocol));
+
+        ouvidoria.setStatus(newStatus.toUpperCase());
+
+        // Notifica no chat que o status mudou
+        OuvidoriaMessage statusMsg = new OuvidoriaMessage();
+        statusMsg.setSender("SYSTEM");
+        statusMsg.setContent("O status da manifestação foi alterado para: " + newStatus.toUpperCase());
+        statusMsg.setOuvidoria(ouvidoria);
+        ouvidoria.getMessages().add(statusMsg);
+
+        Ouvidoria saved = ouvidoriaRepository.save(ouvidoria);
+        return mapToDTO(saved);
+    }
+
+    @Transactional
+    public OuvidoriaMessageDTO sendAdminMessage(String protocol, CreateMessageDTO dto) {
+        return sendMessage(protocol, dto, "OUVIDORIA");
     }
 }
