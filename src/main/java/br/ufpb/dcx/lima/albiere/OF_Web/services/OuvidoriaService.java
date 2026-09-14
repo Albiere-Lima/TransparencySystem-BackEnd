@@ -31,10 +31,11 @@ public class OuvidoriaService {
         ouvidoria.setTitle(dto.title());
         ouvidoria.setDescription(dto.description());
         ouvidoria.setAnonymous(dto.isAnonymous());
+        ouvidoria.setEmail(dto.email());
+
 
         if (!dto.isAnonymous()) {
             ouvidoria.setName(dto.name());
-            ouvidoria.setEmail(dto.email());
             ouvidoria.setPhone(dto.phone());
         }
 
