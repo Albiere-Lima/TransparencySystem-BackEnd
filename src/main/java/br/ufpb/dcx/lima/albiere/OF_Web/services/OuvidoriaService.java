@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -138,4 +139,49 @@ public class OuvidoriaService {
     public OuvidoriaMessageDTO sendAdminMessage(String protocol, CreateMessageDTO dto) {
         return sendMessage(protocol, dto, "OUVIDORIA");
     }
+
+    @Transactional
+    public List<OuvidoriaResponseDTO> getMySupportChats(String id) {
+        return convertOuvidoriaListToDTO(ouvidoriaRepository.findAllByUserId(id));
+    }
+
+
+    private List<OuvidoriaResponseDTO> convertOuvidoriaListToDTO(List<Ouvidoria> a) {
+        List<OuvidoriaResponseDTO> c = new ArrayList<>();
+        a.forEach(o -> c.add(convertOuvidoriaToDTO(o)));
+        return c;
+    }
+
+    private OuvidoriaResponseDTO convertOuvidoriaToDTO(Ouvidoria a) {
+        return new OuvidoriaResponseDTO(
+                a.getId(),
+                a.getProtocol(),
+                a.getType(),
+                a.getTitle(),
+                a.getDescription(),
+                a.isAnonymous(),
+                a.getName(),
+                a.getEmail(),
+                a.getPhone(),
+                a.getStatus(),
+                a.getCreatedAt(),
+                convertOuvidoriaMessageListToDTO(a.getMessages())
+        );
+    }
+
+    public OuvidoriaMessageDTO convertOuvidoriaMessageToDTO(OuvidoriaMessage a) {
+        return new OuvidoriaMessageDTO(
+           a.getId(),
+           a.getSender(),
+           a.getContent(),
+           a.getCreatedAt()
+        );
+    }
+
+    public List<OuvidoriaMessageDTO> convertOuvidoriaMessageListToDTO(List<OuvidoriaMessage> a) {
+        List<OuvidoriaMessageDTO> c = new ArrayList<>();
+        a.forEach(o -> c.add(convertOuvidoriaMessageToDTO(o)));
+        return c;
+    }
+
 }
