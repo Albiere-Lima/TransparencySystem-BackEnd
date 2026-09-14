@@ -40,6 +40,9 @@ public class OuvidoriaController {
 
     @GetMapping("/users/{email}")
     public ResponseEntity<List<OuvidoriaResponseDTO>> getMyManifestations(@PathVariable String email) {
-        return ResponseEntity.ok(ouvidoriaService.getMySupportChats(email));
+        System.out.println(">>> BUSCANDO MANIFESTAÇÕES PARA O EMAIL: [" + email + "]");
+        List<OuvidoriaResponseDTO> list = ouvidoriaService.getMySupportChats(email);
+        System.out.println(">>> TOTAL ENCONTRADO: " + list.size());
+        return ResponseEntity.ok(list);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -142,7 +143,11 @@ public class OuvidoriaService {
 
     @Transactional
     public List<OuvidoriaResponseDTO> getMySupportChats(String email) {
-        return convertOuvidoriaListToDTO(ouvidoriaRepository.findByEmailOrderByCreatedAtDesc(email));
+        if (email == null) return Collections.emptyList();
+        String cleanEmail = email.trim();
+        return convertOuvidoriaListToDTO(
+                ouvidoriaRepository.findByEmailIgnoreCaseOrderByCreatedAtDesc(cleanEmail)
+        );
     }
 
 
