@@ -141,8 +141,8 @@ public class OuvidoriaService {
     }
 
     @Transactional
-    public List<OuvidoriaResponseDTO> getMySupportChats(String id) {
-        return convertOuvidoriaListToDTO(ouvidoriaRepository.findByEmailOrderByCreatedAtDesc(id));
+    public List<OuvidoriaResponseDTO> getMySupportChats(String email) {
+        return convertOuvidoriaListToDTO(ouvidoriaRepository.findByEmailOrderByCreatedAtDesc(email));
     }
 
 
