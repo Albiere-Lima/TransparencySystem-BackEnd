@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface OuvidoriaRepository extends JpaRepository<Ouvidoria, Long> {
     Optional<Ouvidoria> findByProtocol(String protocol);
     List<Ouvidoria> findAllByOrderByCreatedAtDesc();
-    List<Ouvidoria> findAllByUserId(String id);
+    List<Ouvidoria> findByEmailOrderByCreatedAtDesc(String email);
 }

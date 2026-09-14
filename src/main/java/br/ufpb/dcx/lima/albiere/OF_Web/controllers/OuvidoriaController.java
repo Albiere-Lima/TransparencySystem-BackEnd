@@ -38,8 +38,8 @@ public class OuvidoriaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<List<OuvidoriaResponseDTO>> getMyManifestations(@PathVariable String id) {
-        return ResponseEntity.ok(ouvidoriaService.getMySupportChats(id));
+    @GetMapping("/users/{email}")
+    public ResponseEntity<List<OuvidoriaResponseDTO>> getMyManifestations(@PathVariable String email) {
+        return ResponseEntity.ok(ouvidoriaService.getMySupportChats(email));
     }
 }
