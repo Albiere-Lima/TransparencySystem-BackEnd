@@ -14,7 +14,10 @@ public class SecurityCorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:5173", "http://broadly-driller-moonwalk.ngrok-free.dev/", "https://broadly-driller-moonwalk.ngrok-free.dev/"));
+        configuration.setAllowedOriginPatterns(List.of(
+                "https://*.ngrok-free.dev",
+                "localhost:5173"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
