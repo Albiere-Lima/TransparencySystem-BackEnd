@@ -36,6 +36,8 @@ services:
       - NGROK_AUTHTOKEN=3JSJHlysscubiSSZE3VvDDuwmGw_3Axt2eGvdnj8wh2Gmdrtd
     ports:
       - "4040:4040"
+    networks:
+      - api-network
 networks:
     api-network:
         name: api-netwrok
