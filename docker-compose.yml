@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: admin_password
     ports:
       - "5432:5432"
+    networks:
+      - api-network
 
   backend:
     build: .
@@ -22,3 +24,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/transparencia_db
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin_password
+    networks:
+      - api-network
+
+networks:
+    api-network:
+        name: api-netwrok
+        driver: bridge
+        external: true
