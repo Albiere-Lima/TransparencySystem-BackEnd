@@ -21,7 +21,7 @@ public class ReceiptController {
     private final ReceiptService receiptService;
 
     @PostMapping(path = "/{expenseId}/receipt", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'ROLE_ADMIN')")
     public ResponseEntity<ReceiptResponseDTO> uploadReceipt(
             @PathVariable Long expenseId,
             @RequestParam("file") MultipartFile file) {
@@ -44,7 +44,7 @@ public class ReceiptController {
     }
 
     @DeleteMapping(path = "/{expenseId}/receipt")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'ROLE_ADMIN')")
     public ResponseEntity<Void> deleteReceipt(@PathVariable Long expenseId) {
         receiptService.deleteReceipt(expenseId);
         return ResponseEntity.noContent().build();
