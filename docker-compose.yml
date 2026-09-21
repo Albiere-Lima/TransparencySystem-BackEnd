@@ -40,6 +40,6 @@ services:
       - api-network
 networks:
     api-network:
-        name: api-netwrok
+        name: api-network
         driver: bridge
         external: true
