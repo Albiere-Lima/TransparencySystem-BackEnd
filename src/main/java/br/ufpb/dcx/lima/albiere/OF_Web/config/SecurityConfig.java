@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/login", "/api/users/register", "/api/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/expenses", "/api/expenses/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/expenses", "/api/expenses/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/expenses/**/receipt", "/api/expenses/all/receipt").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/expenses/*/receipt", "/api/expenses/all/receipt").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/expenses").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/expenses/**").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                         .requestMatchers("/api/auth/**").permitAll()
