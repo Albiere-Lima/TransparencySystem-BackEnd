@@ -16,7 +16,9 @@ public class SecurityCorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of(
                 "https://*.ngrok-free.dev",
-                "localhost:5173"
+                "localhost:5173",
+                "https://192.168.0.7:5173",
+                "https://calcc.loca.lt"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
