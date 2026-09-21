@@ -29,6 +29,9 @@ public class Expense {
     @Column(nullable = false)
     private String category;
 
+    @OneToOne(mappedBy = "expense", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Receipt receipt;
+
     public Expense() {}
 
 }
