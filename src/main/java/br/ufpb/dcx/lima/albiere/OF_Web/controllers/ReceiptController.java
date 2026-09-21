@@ -13,14 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/expenses/")
+@RequestMapping("/expenses")
 @RequiredArgsConstructor
 public class ReceiptController {
 
 
     private final ReceiptService receiptService;
 
-    @PostMapping(path = "{expenseId}/receipt", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path = "/{expenseId}/receipt", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ReceiptResponseDTO> uploadReceipt(
             @PathVariable Long expenseId,
@@ -30,20 +30,20 @@ public class ReceiptController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @GetMapping(path = "{expenseId}/receipt")
+    @GetMapping(path = "/{expenseId}/receipt")
     public ResponseEntity<ReceiptResponseDTO> getReceipt(@PathVariable Long expenseId) {
         ReceiptResponseDTO dto = receiptService.findByExpenseId(expenseId);
         return ResponseEntity.ok(dto);
 
     }
 
-    @GetMapping(path = "all/receipt")
+    @GetMapping(path = "/all/receipt")
     public ResponseEntity<List<ReceiptResponseDTO>> getAllReceipt() {
         List<ReceiptResponseDTO> dtos = receiptService.getAll();
         return ResponseEntity.ok(dtos);
     }
 
-    @DeleteMapping(path = "{expenseId}/receipt")
+    @DeleteMapping(path = "/{expenseId}/receipt")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteReceipt(@PathVariable Long expenseId) {
         receiptService.deleteReceipt(expenseId);
