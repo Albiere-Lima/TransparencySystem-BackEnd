@@ -1,4 +1,5 @@
 package br.ufpb.dcx.lima.albiere.OF_Web.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class Receipt {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expense_id", nullable = false, unique = true)
+    @JsonIgnore
     private Expense expense;
 
     @PrePersist
