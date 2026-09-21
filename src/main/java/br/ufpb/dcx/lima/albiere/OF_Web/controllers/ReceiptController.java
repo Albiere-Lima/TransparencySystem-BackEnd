@@ -32,11 +32,10 @@ public class ReceiptController {
     }
 
     @GetMapping(path = "{expenseId}/receipt")
-    public ResponseEntity<ReceiptResponseDTO> getReceipt(@PathVariable String expenseId) {
-        if(!Objects.equals(expenseId, "all")) {
-            ReceiptResponseDTO dto = receiptService.findByExpenseId(expenseId);
-            return ResponseEntity.ok(dto);
-        }
+    public ResponseEntity<ReceiptResponseDTO> getReceipt(@PathVariable Long expenseId) {
+        ReceiptResponseDTO dto = receiptService.findByExpenseId(expenseId);
+        return ResponseEntity.ok(dto);
+
     }
 
     @GetMapping(path = "all/receipt")
@@ -47,7 +46,7 @@ public class ReceiptController {
 
     @DeleteMapping(path = "{expenseId}/receipt")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteReceipt(@PathVariable String expenseId) {
+    public ResponseEntity<Void> deleteReceipt(@PathVariable Long expenseId) {
         receiptService.deleteReceipt(expenseId);
         return ResponseEntity.noContent().build();
     }
