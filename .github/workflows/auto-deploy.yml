@@ -21,12 +21,3 @@ jobs:
       - name: Recriar Container do Back-end
         run: |
           docker rm -f backend_transparencia || true
-          docker run -d \
-            --name backend_transparencia \
-            --network api-network \
-            -p 8080:8080 \
-            -e SPRING_DATASOURCE_URL=jdbc:postgresql://db_transparencia:5432/transparencia_db \
-            -e SPRING_DATASOURCE_USERNAME=admin \
-            -e SPRING_DATASOURCE_PASSWORD=admin_password \
-            --restart=always \
-            localhost:5000/backend-transparencia:latest
