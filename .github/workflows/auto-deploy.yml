@@ -1,0 +1,28 @@
+name: Deploy Backend Transparência
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Build e Push para o Registry Local
+        run: |
+          docker build -t localhost:5000/backend-transparencia:latest .
+          docker push localhost:5000/backend-transparencia:latest
+
+      - name: Atualizar Container da API no Servidor
+        run: |
+          docker rm -f api-transparencia || true
+          docker run -d \
+            --name api-transparencia \
+            -p 8000:8000 \
+            --restart=always \
+            localhost:5000/backend-transparencia:latest
