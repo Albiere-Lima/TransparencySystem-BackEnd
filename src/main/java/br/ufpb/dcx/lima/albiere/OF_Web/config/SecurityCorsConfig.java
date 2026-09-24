@@ -18,6 +18,7 @@ public class SecurityCorsConfig {
                 "https://*.ngrok-free.dev",
                 "localhost:5173",
                 "https://192.168.0.7:5173",
+                "https://192.168.0.4.nip.io",
                 "https://calcc.loca.lt"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
