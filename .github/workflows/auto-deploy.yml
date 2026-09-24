@@ -1,4 +1,4 @@
-name: Deploy Backend Transparência
+name: Deploy Backend Spring Boot
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Baixar código do repositório
+      - name: Baixar código
         uses: actions/checkout@v4
 
       - name: Build e Push para o Registry Local
@@ -18,11 +18,15 @@ jobs:
           docker build -t localhost:5000/backend-transparencia:latest .
           docker push localhost:5000/backend-transparencia:latest
 
-      - name: Atualizar Container da API no Servidor
+      - name: Recriar Container do Back-end
         run: |
-          docker rm -f api-transparencia || true
+          docker rm -f backend_transparencia || true
           docker run -d \
-            --name api-transparencia \
-            -p 8000:8000 \
+            --name backend_transparencia \
+            --network portal-transparencia_api-network \
+            -p 8080:8080 \
+            -e SPRING_DATASOURCE_URL=jdbc:postgresql://db_transparencia:5432/transparencia_db \
+            -e SPRING_DATASOURCE_USERNAME=admin \
+            -e SPRING_DATASOURCE_PASSWORD=admin_password \
             --restart=always \
             localhost:5000/backend-transparencia:latest
