@@ -3,9 +3,9 @@ services:
     image: postgres:15
     container_name: db_transparencia
     environment:
-      POSTGRES_DB: transparencia_db
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin_password
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
     ports:
       - "5432:5432"
     networks:
@@ -16,19 +16,16 @@ services:
     container_name: backend_transparencia
     ports:
       - "8080:8080"
+    # Aqui o Compose joga TODO o conteúdo do .env direto pro Spring Boot
     env_file:
       - .env
     depends_on:
       - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/transparencia_db
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin_password
     networks:
       - api-network
 
 networks:
-    api-network:
-        name: api-network
-        driver: bridge
-        external: true
+  api-network:
+    name: api-network
+    driver: bridge
+    external: true
