@@ -21,6 +21,8 @@ services:
       - .env
     depends_on:
       - db
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m
     networks:
       - api-network
 
