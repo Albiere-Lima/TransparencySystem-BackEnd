@@ -19,7 +19,8 @@ public class SecurityCorsConfig {
                 "localhost:5173",
                 "https://192.168.0.7:5173",
                 "https://192.168.0.4.nip.io",
-                "https://calcc.loca.lt"
+                "https://calcc.loca.lt",
+                "https://calccadm.loca.lt"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
